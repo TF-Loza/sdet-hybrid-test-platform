@@ -1,4 +1,4 @@
-name: API Tests
+name: .NET Tests
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main, master ]
 
 jobs:
-  api-tests:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,5 +25,19 @@ jobs:
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
 
+      - name: Install Playwright browsers
+        run: pwsh UiTests/bin/Release/net10.0/playwright.ps1 install --with-deps
+
       - name: Run API tests
         run: dotnet test ApiTests/ApiTests.csproj --configuration Release --no-build
+
+      - name: Run UI tests
+        run: dotnet test UiTests/UiTests.csproj --configuration Release --no-build
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-screenshots
+          path: |
+            **/Screenshots/**

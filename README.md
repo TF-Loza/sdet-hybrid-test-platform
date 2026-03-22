@@ -1,5 +1,7 @@
 # C# SDET Portfolio – UI & API Automation
 
+![.NET Tests](https://github.com/TF-Loza/sdet-hybrid-test-platform/actions/workflows/dotnet-tests.yml/badge.svg)
+
 A hands-on QA Automation portfolio project demonstrating UI and API testing using modern tools and clean framework design.
 
 This project is built using **C#**, **.NET**, **xUnit**, **Playwright**, and **RestSharp**, and demonstrates both UI automation and API testing with a maintainable structure.

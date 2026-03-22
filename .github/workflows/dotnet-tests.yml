@@ -29,15 +29,16 @@ jobs:
         run: pwsh UiTests/bin/Release/net10.0/playwright.ps1 install --with-deps
 
       - name: Run API tests
-        run: dotnet test ApiTests/ApiTests.csproj --configuration Release --no-build
+        run: dotnet test ApiTests/ApiTests.csproj --configuration Release --no-build --logger "trx;LogFileName=api-tests.trx"
 
       - name: Run UI tests
-        run: dotnet test UiTests/UiTests.csproj --configuration Release --no-build
+        run: dotnet test UiTests/UiTests.csproj --configuration Release --no-build --logger "trx;LogFileName=ui-tests.trx"
 
-      - name: Upload screenshots
+      - name: Upload test results and screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ui-screenshots
+          name: test-artifacts
           path: |
+            **/*.trx
             **/Screenshots/**
